@@ -1,0 +1,116 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  {{- if .Values.deployment.annotations }}
+  annotations:
+  {{- with .Values.deployment.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+
+  name: {{ .Release.Name}}-kiwix-server
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/instance: {{ .Release.Name}}-kiwix-server
+    app.kubernetes.io/name: {{ .Release.Name}}-kiwix-server
+    {{- if .Values.deployment.labels }}
+    {{- with .Values.deployment.labels }}
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- end }}
+
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Release.Name}}-kiwix-server
+      app.kubernetes.io/name: {{ .Release.Name}}-kiwix-server
+      {{- if .Values.deployment.selector.matchLabels }}
+      {{- with .Values.deployment.selector.matchLabels }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- end }}
+
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.deployment.spec.template.annotations }}
+        {{- with .Values.deployment.spec.template.annotations }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- end }}
+        kubectl.kubernetes.io/default-container: {{ .Release.Name}}-kiwix-server
+      labels:
+        {{- if .Values.deployment.spec.template.labels }}
+        {{- with .Values.deployment.spec.template.labels }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- end }}
+        app.kubernetes.io/instance: {{ .Release.Name}}-kiwix-server
+        app.kubernetes.io/name: {{ .Release.Name}}-kiwix-server
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-kiwix-server
+        image: {{ .Values.deployment.imageTag }}
+        imagePullPolicy: IfNotPresent
+        args:
+          {{- if .Values.deployment.zimPaths }}
+            {{- with .Values.deployment.zimPaths }}
+            {{- toYaml . | nindent 8 }}
+            {{- end }}
+          {{- else }}
+          - '/data/*.zim'
+          {{- end }}
+
+        resources:
+          requests:
+            cpu: {{ .Values.deployment.resources.cpu.request | default "100m" }}
+            memory: {{ .Values.deployment.resources.mem.request | default "1Gi" }}
+          limits:
+            cpu: {{ .Values.deployment.resources.cpu.limit | default "500m" }}
+            memory: {{ .Values.deployment.resources.mem.limit | default "2Gi" }}
+
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds | default 180 }}
+          timeoutSeconds: {{ .Values.deployment.livenessProbe.timeoutSeconds | default 180 }}
+          successThreshold: 1
+          failureThreshold: 8 
+          periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds | default 60 }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        ports:
+        - containerPort: 8080
+          name: http
+      restartPolicy: Always
+
+      {{- if .Values.persistence.enabled }}
+        volumeMounts:
+        # regardless of .existingClaim or not, /data is required
+        - name: data
+          mountPath: /data
+      volumes:
+        {{- if .Values.persistence.existingClaim }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{- .Values.persistence.existingClaim -}}
+        {{- else -}}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-kiwix-pvc
+        {{- end -}}
+      {{- end -}}

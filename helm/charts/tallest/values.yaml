@@ -1,0 +1,66 @@
+# if you want more rules/routes, roll your own ingress
+ingress:
+  enabled: true
+  ingressClassName: ""
+  host: ""
+  annotations: {}
+
+persistence:
+  # this flag is required even if you're bringing your own volume
+  # mounts for the deployment
+  #
+  # NOTE: all PV/PVC configurations provided and/or associated with this chart
+  #       assume will be mounted into /data. If you want more control, create
+  #       your own PVs & PVCs, configure them via the .volume & .volumeMounts
+  #       attributes for the deployment below
+  enabled: false
+
+  # if you have already created a PVC, specify it here. this chart assumes that
+  # you've attached that PVC to a separately provisioned PV already
+  # NOTE: if this is specified, all other persistence flags/values are ignored
+  #       except for the dropin volumes & volumeMounts for the deployment below
+  existingClaim: ""
+
+  # allows you to specify the name and type of CSI the PVC is associated with
+  claimName: ""
+  storageClassName: ""
+
+  # if you or a CSI created a PV and you want to keep any data around, you can
+  # specify it here 
+  # note that this will ONLY be used in the PVC created by this chart
+  volumeName: pvc-1780b073-7e94-40f9-b005-db27fbe6d912
+
+deployment:
+  # various deployment things
+  annotations: {}
+  labels: {}
+  selector:
+    matchLabels: {}
+
+  # extra labels for the pods and whatnot
+  spec:
+    template:
+      annotations: {}
+      labels: {}
+
+  # build and override this if you want to not deal with persistence, bake the
+  # zim files into your own image
+  imageTag: ghcr.io/kiwix/kiwix-serve:3.7.0@sha256:9bd81257180e2d5328df1a139c3af76de453d6f2c475235035645c92054a168f
+
+  # dumped into the `kiwix-serve --port 8080 <here>` command for the image above
+  zimPaths:
+    - /data/*.zim
+    - /data/stackexchange/*.zim
+
+  # tweak these if you have too much/little data
+  resources:
+    cpu:
+      limit: 500m
+      request: 100m
+    mem:
+      limit: 4Gi
+      request: 1Gi
+  livenessProbe:
+    initialDelaySeconds: 180
+    timeoutSeconds: 180
+    periodSeconds: 60
