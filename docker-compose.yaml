@@ -6,5 +6,7 @@ services:
     volumes:
       - ./data:/data
 
-  runner:
-    build: .
+  tallest:
+    build:
+      dockerfile: docker/dev.Dockerfile
+      context: .
