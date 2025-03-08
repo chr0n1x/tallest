@@ -1,6 +1,6 @@
 default: dev
 
 dev:
-	docker compose --rm -ti run --entrypoint bash tallest
+	docker compose run --rm -ti --entrypoint bash tallest
 
 
