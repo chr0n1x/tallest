@@ -89,7 +89,8 @@ def download(source: Source):
     """Download files from the source to the given directory."""
 
     with progress:
-        with ThreadPoolExecutor(max_workers=4) as pool:
+        max_workers = int(os.getenv("TALLEST_MAX_DOWNLOADS", "4"))
+        with ThreadPoolExecutor(max_workers=max_workers) as pool:
             for url in [source.url]:
                 dest_path = os.path.join(source.download_dir, source.name)
                 task_id = progress.add_task(
