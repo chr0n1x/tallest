@@ -1,10 +1,14 @@
-FROM golang:1.23
+FROM python:3.13-slim
 
-ENV     SRC=/go/src/github.com/chr0n1x/go-tallest
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+ENV SRC=/app
 WORKDIR $SRC
-COPY    src/ $SRC/src
-ADD     go.mod $SRC
 
-RUN go build -o /go/bin/tallest ./src
+COPY requirements.txt $SRC
+RUN pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT /go/bin/tallest
+COPY . $SRC
+
+ENTRYPOINT python main.py

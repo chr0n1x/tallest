@@ -1,14 +1,10 @@
 {
-  "rules": [
+  "sources": [
     {
       "name": "docs.example.com",
-      "url": "https://docs.example.com",
-      "targetPattern": "/api/*"
-    },
-    {
-      "name": "api.example.com",
-      "url": "https://api.example.com",
-      "targetPattern": "/v1/*"
+      "url": "https://dumps.wikimedia.org/kiwix/zim/wikipedia/",
+      "type": "zim",
+      "targetPattern": "*wikipedia_en_all_maxi_*"
     }
   ]
 }
