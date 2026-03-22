@@ -6,11 +6,6 @@ on:
     paths:
       - 'docker/**'
       - '!docker/.gitignore'
-  pull_request:
-    branches: [main]
-    paths:
-      - 'docker/**'
-      - '!docker/.gitignore'
   workflow_dispatch:
     inputs:
       tag:
