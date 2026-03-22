@@ -10,8 +10,6 @@ Continuously downloads ZIM files for consumption (e.g., Kiwix archives).
 - **Pattern filtering**: Select specific files using regex patterns
 - **Parallel downloads**: Uses ThreadPoolExecutor for concurrent downloads
 - **Progress visualization**: Rich progress bars with speed and time estimates
-- **Pause/Resume**: Resume downloads after interruption (Ctrl+C)
-- **Automatic deduplication**: Skips files that already exist
 
 ## Installation
 
