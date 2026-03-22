@@ -45,7 +45,7 @@ Create a `.tallest.config.json` file in your project directory:
 | `url` | string | Base URL of the ZIM index to parse |
 | `type` | string | Source type (currently only `zim` is supported) |
 | `targetPattern` | string | Regex pattern to match files (optional) |
-| `download_dir` | string | Directory to store downloaded files (default: `./`) |
+| `downloadDir` | string | Directory to store downloaded files (default: `./`) |
 
 
 ## Environment Variables

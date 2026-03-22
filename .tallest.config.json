@@ -4,7 +4,8 @@
       "name": "Wikipedia ZIM Archive",
       "url": "https://dumps.wikimedia.org/kiwix/zim/wikipedia/",
       "type": "zim",
-      "targetPattern": ".*wikipedia_en_all_maxi_.*"
+      "targetPattern": ".*wikipedia_en_all_maxi_.*",
+      "downloadDir": "./wiki-stash"
     }
   ]
 }

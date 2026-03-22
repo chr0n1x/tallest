@@ -112,7 +112,7 @@ if __name__ == "__main__":
             url=r["url"],
             target_pattern=r.get("targetPattern", ""),
             type=r["type"],
-            download_dir=r.get("download_dir", "./"),
+            download_dir=r.get("downloadDir", "./"),
         )
         for r in data["sources"]
     ])
