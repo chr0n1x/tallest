@@ -12,4 +12,4 @@ COPY ./main.py /app/.
 COPY ./parsers /app/.
 COPY ./LICENSE /app/.
 
-ENTRYPOINT python main.py
+ENTRYPOINT ["python", "/app/main.py"]
