@@ -1,0 +1,14 @@
+{
+  "rules": [
+    {
+      "name": "docs.example.com",
+      "url": "https://docs.example.com",
+      "targetPattern": "/api/*"
+    },
+    {
+      "name": "api.example.com",
+      "url": "https://api.example.com",
+      "targetPattern": "/v1/*"
+    }
+  ]
+}
