@@ -1,2 +1,11 @@
 data/
 tmp/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+.env
+.DS_Store
+node_modules/
+venv/
+.venv/

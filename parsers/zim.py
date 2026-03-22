@@ -1,9 +1,6 @@
 from html.parser import HTMLParser
-import logging
 import requests
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from urllib.parse import urljoin
 
 
 class ZimIndexParser(HTMLParser):
@@ -44,13 +41,11 @@ class ZimIndexParser(HTMLParser):
 
 def parse_zim_links(url: str, pattern: str = None) -> ZimIndexParser:
     if not url:
-        logger.error("ZIM - no url given")
-        return None
+        raise ValueError("ZIM - no url given")
     try:
         resp = requests.get(url, timeout=10)
-        logger.info(f"fetched links from {url}")
     except Exception:
-        logger.error(f"could not fetch from {url}")
+        raise RuntimeError(f"could not fetch from {url}")
         return None
     parser = ZimIndexParser()
     if pattern:
@@ -59,8 +54,7 @@ def parse_zim_links(url: str, pattern: str = None) -> ZimIndexParser:
     try:
         parser.feed(resp.text)
     except Exception:
-        logger.error(f"could not fetch from {url}")
-        return None
+        raise RuntimeError(f"could not fetch from {url}")
     return parser
 
 
@@ -68,4 +62,9 @@ def get_latest_source_link(url: str, pattern: str = None) -> str:
     parser = parse_zim_links(url, pattern)
     if not parser:
         return ""
-    return parser.links[max(parser.links.keys())]
+    name = max(parser.links.keys())
+    href = parser.links[name]
+    # some zim indices will have href of JUST file name; prepend the index URL
+    if not href.startswith(("http://", "https://")):
+        href = urljoin(url, href)
+    return (name, href)
