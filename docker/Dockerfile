@@ -10,6 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./main.py /app/.
 COPY ./parsers /app/.
-COPY ./LICENSE /app/.
 
 ENTRYPOINT ["python", "/app/main.py"]
