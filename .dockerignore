@@ -1,0 +1,12 @@
+.git/
+data/
+docker/
+helm/
+docs/
+tmp/
+.venv/
+.github/
+
+Makefile
+docker-compose.yaml
+.gitignore
