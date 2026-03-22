@@ -1,0 +1,10 @@
+# Ignore generated files
+generated.yaml
+charts/
+*.tgz
+*.zip
+
+.git/
+.gitignore
+
+!.helmignore

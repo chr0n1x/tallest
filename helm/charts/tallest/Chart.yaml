@@ -1,11 +1,12 @@
+---
 apiVersion: 1.0.0
-name: kiwix
-version: 3.7
-description: kiwix server w/ simple CSI integration, along with a deployment of go-tallest to auto-fetch ZIM repository updates
+name: tallest
+version: 0.0.1
+description: tallest deployment to auto-fetch ZIM repository updates
 type: application
 
-# truly. fuck truecharts.
-# dependencies:
-#   - name: kiwix-serve
-#     version: ~10
-#     repository: oci://tccr.io/truecharts
+dependencies:
+  - name: app-template
+    alias: tallest
+    version: ~4
+    repository: https://bjw-s-labs.github.io/helm-charts/
