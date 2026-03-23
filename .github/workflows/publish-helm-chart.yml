@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'helm/charts/**/*'
-      - 'helm/charts/*'
+      - 'helm/chart/**/*'
+      - 'helm/chart/*'
   workflow_dispatch:
     inputs:
       branch:
