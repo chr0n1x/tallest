@@ -31,10 +31,10 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: helm dep up
+      # wtf why is this necessary
+      - name: add repos
         run: |
-          cd helm/charts/tallest
-          helm repo update
+          helm repo add bjw-s-labs https://bjw-s-labs.github.io/helm-charts/
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@main
