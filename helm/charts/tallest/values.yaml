@@ -1,5 +1,5 @@
 ---
-tallest:
+app-template:
   controllers:
     cron:
       type: cronjob

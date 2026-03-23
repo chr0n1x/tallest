@@ -7,6 +7,5 @@ type: application
 
 dependencies:
   - name: app-template
-    alias: tallest
     version: ~4
     repository: https://bjw-s-labs.github.io/helm-charts/
