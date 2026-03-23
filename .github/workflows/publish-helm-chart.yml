@@ -35,14 +35,11 @@ jobs:
       - name: add repos
         run: |
           helm repo add bjw-s-labs https://bjw-s-labs.github.io/helm-charts/
-          pwd
-          ls
-          cd helm/charts/tallest
-          helm dep up
+          cd helm/charts/tallest && helm dep up
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@main
         with:
-          charts_dir: helm/charts/
+          charts_dir: helm/charts/tallest
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
