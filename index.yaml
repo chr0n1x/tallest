@@ -1,0 +1,17 @@
+apiVersion: v1
+entries:
+  tallest:
+  - apiVersion: 1.0.0
+    created: "2026-03-23T04:58:06.013935973Z"
+    dependencies:
+    - name: app-template
+      repository: https://bjw-s-labs.github.io/helm-charts/
+      version: ~4
+    description: tallest deployment to auto-fetch ZIM repository updates
+    digest: 0977b997e8c179815e0d8a0b028654a4296e5bd2c65e06306baa02f7ccadbd43
+    name: tallest
+    type: application
+    urls:
+    - https://github.com/chr0n1x/tallest/releases/download/tallest-0.0.1/tallest-0.0.1.tgz
+    version: 0.0.1
+generated: "2026-03-23T04:58:06.013965618Z"
