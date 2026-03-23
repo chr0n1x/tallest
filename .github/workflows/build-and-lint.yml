@@ -42,7 +42,7 @@ jobs:
           cache-to: type=gha,mode=max
 
   test:
-    runs-on: python-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
