@@ -13,7 +13,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -42,5 +42,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+
+  build:
+    runs-on: python-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Run CI lint
-        run: make ci
+        run: |
+          make ci
