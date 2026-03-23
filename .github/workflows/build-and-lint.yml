@@ -7,6 +7,12 @@ on:
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build from'
+        required: false
+        default: 'main'
 
 env:
   REGISTRY: ghcr.io
