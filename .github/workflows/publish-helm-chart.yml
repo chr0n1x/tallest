@@ -36,7 +36,7 @@ jobs:
         run: |
           helm repo add bjw-s-labs https://bjw-s-labs.github.io/helm-charts/
           cd helm/charts/tallest && helm dep up
-          mv charts ../.
+          cp -R charts ../.
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@main
