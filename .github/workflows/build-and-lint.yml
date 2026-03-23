@@ -43,7 +43,7 @@ jobs:
           cache-to: type=gha,mode=max
 
 
-  build:
+  test:
     runs-on: python-latest
     permissions:
       contents: read
