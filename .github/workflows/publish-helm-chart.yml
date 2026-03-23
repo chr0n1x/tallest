@@ -39,7 +39,7 @@ jobs:
       - name: add repos
         run: |
           helm repo add bjw-s-labs https://bjw-s-labs.github.io/helm-charts/
-          cd helm/charts/tallest && helm dep up
+          cd charts/tallest && helm dep up
 
       # why is this tool absolute trash
       - name: Run chart-releaser
