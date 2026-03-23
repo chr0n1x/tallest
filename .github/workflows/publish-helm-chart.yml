@@ -36,12 +36,12 @@ jobs:
       - name: add repos
         run: |
           helm repo add bjw-s-labs https://bjw-s-labs.github.io/helm-charts/
-          cd helm/chart && helm dep up
+          cd helm/charts/tallest && helm dep up
 
       # why is this tool absolute trash
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@main
         with:
-          charts_dir: helm/chart/
+          charts_dir: helm/charts/
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
