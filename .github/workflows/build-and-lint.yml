@@ -1,9 +1,6 @@
-name: Build and Test
+name: PR-job
 
 on:
-  push:
-    branches:
-      - '**'
   pull_request:
     branches:
       - '**'
@@ -41,7 +38,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  test:
+  ci-suite:
     runs-on: ubuntu-latest
     permissions:
       contents: read
