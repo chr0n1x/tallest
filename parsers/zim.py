@@ -62,10 +62,14 @@ def parse_zim_links(url: str, pattern: str = None) -> ZimIndexParser:
     return parser
 
 
-def get_latest_source_link(url: str, pattern: str = None) -> str:
-    """Get the latest source link from a ZIM index."""
+def get_latest_source_link(url: str, pattern: str = None) -> tuple[str, str] | str:
+    """Get the latest source link from a ZIM index.
+
+    Returns:
+        A tuple of (name, href) if a link is found, or an empty string if no links are found.
+    """
     parser = parse_zim_links(url, pattern)
-    if not parser:
+    if not parser.links:
         return ""
     name = max(parser.links.keys())
     href = parser.links[name]

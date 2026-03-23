@@ -12,6 +12,13 @@ tallest:
             pullPolicy: Always
             repository: ghcr.io/chr0n1x/tallest
             tag: latest
+          volumeMounts:
+          - name: data
+            mountPath: /data
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: kiwix-pvc
       cronjob:
         # default once a week
         schedule: "0 0 * * 0"

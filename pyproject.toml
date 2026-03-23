@@ -1,0 +1,17 @@
+[project]
+name = "tallest"
+version = "0.1.0"
+dependencies = [
+    "requests>=2.28.0",
+    "pytest>=7.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["parsers"]
+addopts = "-v"
