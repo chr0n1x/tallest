@@ -36,6 +36,8 @@ jobs:
         run: |
           helm repo add bjw-s-labs https://bjw-s-labs.github.io/helm-charts/
           pwd
+          ls
+          cd helm/charts/tallest
           helm dep up
 
       - name: Run chart-releaser
