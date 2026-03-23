@@ -1,12 +1,12 @@
 """Tallest - ZIM source downloader."""
 
+from threading import Event
 import json
-import os.path
 import signal
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from functools import partial
-from threading import Event
+import os.path
 from urllib.request import urlopen
 
 from rich.progress import (
