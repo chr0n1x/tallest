@@ -1,9 +1,14 @@
+"""Parse ZIM index pages to extract source links."""
+
 from html.parser import HTMLParser
-import requests
+import re
 from urllib.parse import urljoin
+import requests
 
 
 class ZimIndexParser(HTMLParser):
+    """Parse ZIM index HTML to extract links."""
+
     def __init__(self) -> None:
         super().__init__()
         self.links: dict[str, str] = {}
@@ -40,25 +45,25 @@ class ZimIndexParser(HTMLParser):
 
 
 def parse_zim_links(url: str, pattern: str = None) -> ZimIndexParser:
+    """Parse ZIM links from a URL."""
     if not url:
         raise ValueError("ZIM - no url given")
     try:
         resp = requests.get(url, timeout=10)
-    except Exception:
-        raise RuntimeError(f"could not fetch from {url}")
-        return None
+    except Exception as exc:
+        raise RuntimeError(f"could not fetch from {url}") from exc
     parser = ZimIndexParser()
     if pattern:
-        import re
         parser.pattern = re.compile(pattern)
     try:
         parser.feed(resp.text)
-    except Exception:
-        raise RuntimeError(f"could not fetch from {url}")
+    except Exception as exc:
+        raise RuntimeError(f"could not fetch from {url}") from exc
     return parser
 
 
 def get_latest_source_link(url: str, pattern: str = None) -> str:
+    """Get the latest source link from a ZIM index."""
     parser = parse_zim_links(url, pattern)
     if not parser:
         return ""
