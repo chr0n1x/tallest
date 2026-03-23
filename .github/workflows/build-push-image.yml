@@ -6,6 +6,9 @@ on:
     paths:
       - 'docker/**'
       - '!docker/.gitignore'
+      - '*.py'
+      - '**/*.py'
+      - '*.txt'
   workflow_dispatch:
     inputs:
       tag:
