@@ -30,18 +30,16 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
 
-      - name: Build Docker image
+      - name: Build Main Image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: false
-          load: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: test
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
 
   test:
     runs-on: python-latest
