@@ -1,6 +1,5 @@
 # Ignore generated files
 generated.yaml
-charts/
 *.tgz
 *.zip
 
