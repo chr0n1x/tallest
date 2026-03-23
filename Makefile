@@ -31,7 +31,7 @@ lint-flake8:
 
 
 lint-autoflake:
-	.venv/bin/python -m autoflake --remove-all-unused-imports --remove-unused-variables $(shell find . -type f -name '*.py' ! -path './.venv/*')
+	.venv/bin/python -m autoflake --in-place --remove-all-unused-imports --remove-unused-variables $(shell find . -type f -name '*.py' ! -path './.venv/*')
 
 
 ci-lint: lint-flake8
