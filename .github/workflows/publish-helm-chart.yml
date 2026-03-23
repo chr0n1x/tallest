@@ -33,6 +33,7 @@ jobs:
 
       - name: helm dep up
         run: |
+          cd helm/charts/tallest
           helm repo update
 
       - name: Run chart-releaser
