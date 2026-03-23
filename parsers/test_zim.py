@@ -1,11 +1,11 @@
 """Tests for ZIM index parser."""
 
 import unittest
+from unittest.mock import patch, MagicMock
 from urllib.parse import urljoin
 
 import pytest
 import requests
-from unittest.mock import patch, MagicMock
 
 from parsers.zim import ZimIndexParser, parse_zim_links, get_latest_source_link
 
@@ -104,7 +104,7 @@ class TestParseZimLinks(unittest.TestCase):
         self.assertIsNotNone(parser.pattern)
 
     @patch("parsers.zim.requests.get")
-    def test_parse_links_empty_url(self, mock_get):
+    def test_parse_links_empty_url(self, _mock_get):
         """Test parsing with empty URL."""
         with self.assertRaises(ValueError):
             parse_zim_links("")
